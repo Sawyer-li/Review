@@ -135,7 +135,7 @@ const dataSource = [
 
 export default class Category extends Component {
   render() {
-    const setting = {
+    const settings = {
       dots: true,
       arrow: false,
       slidesToShow: 1,
@@ -143,15 +143,15 @@ export default class Category extends Component {
       autoplay: true
     };
     return (
-      <div>
-        <Slider {...setting}>
+      <div className="category">
+        <Slider {...settings}>
           {dataSource.map((section, index) => {
             return (
               <div key={index}>
                 {section.map((item, i) => {
                   return (
                     <div className="category__section" key={i}>
-                      <img className="category__icon" src={item.src} alt={item.name} />
+                      <img className="category__icon" src={item.src} />
                       <div>
                         <span className="category__text">{item.name}</span>
                       </div>

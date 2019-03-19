@@ -4,7 +4,6 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
 import { actions as appActions, getError } from '../../redux/modules/app';
 import Home from '../Home';
-import './style.css';
 
 class App extends Component {
   render() {
