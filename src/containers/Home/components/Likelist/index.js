@@ -22,7 +22,7 @@ export default class Likelist extends Component {
         {pageCount < 3 ? (
           <Loading />
         ) : (
-          <a href="" className="likeList__viewAll">
+          <a href="/" className="likeList__viewAll">
             加载更多
           </a>
         )}
@@ -30,8 +30,14 @@ export default class Likelist extends Component {
     );
   }
   componentDidMount() {
-    document.addEventListener("scroll", this.handleScroll);
-    this.props.fetchData();
+    if(this.props.pageCount < 3){
+     document.addEventListener("scroll", this.handleScroll);
+    }else{
+      this.removeListener = true;
+    }
+    if(this.props.pageCount === 0){
+      this.props.fetchData();
+    }
   }
   componentDidUpdate() {
     if (this.props.pageCount >= 3 && !this.removeListener) {

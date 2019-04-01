@@ -56,6 +56,10 @@ export const actions = {
   //加载特惠商品
   loadDiscounts: () => {
     return (dispatch, getState) => {
+      const {ids} = getState().home.discounts;
+      if(ids.length > 0){
+        return null;
+      }
       const endpoint = url.getProductList(
         params.PATH_DISCOUNTS,
         0,

@@ -1,5 +1,4 @@
 import { get } from "../../utils/request";
-import { normalize } from "path";
 //有这个属性需要的action需要中间件处理
 export const FETCH_DATA = "FETCH DATA";
 export default store => next => action => {

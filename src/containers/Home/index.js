@@ -37,7 +37,6 @@ class Home extends Component {
     this.props.homeActions.loadLikes();
   };
   render() {
-    console.log(this.props);
     const { likes, discounts, pageCount } = this.props;
     return (
       <div>
