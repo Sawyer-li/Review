@@ -46,8 +46,8 @@ export default class Likelist extends Component {
     }
   }
   componentWillUnmount() {
-    it(!this.removeListener);
-    document.removeEventListener("scroll", this.handleScroll);
+    if(!this.removeListener)
+     document.removeEventListener("scroll", this.handleScroll);
   }
   //处理滚动事件实现加载更多
   handleScroll = () => {
