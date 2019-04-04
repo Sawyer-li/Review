@@ -1,13 +1,14 @@
+import createReducer from "../../../utils/createReduce";
 export const schema = {
-    name: 'products',
-    id: 'id',
-  } 
-  
-  const reducer = (state = {}, action) => {
-    if(action.response && action.response.products) {
-      return {...state, ...action.response.products}
-    }
-    return state;
-  }
-  
-  export default reducer;
+  name: "products",
+  id: "id"
+};
+
+const reducer = createReducer(schema.name);
+
+export default reducer;
+
+export const getProductDetail = (state, id) => {
+  const product = state.entities.products[id];
+  return product && product.detail && product.purchaseNotes ? product : null;
+};
