@@ -1,23 +1,28 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import ErrorToast from "../ErrorToast";
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { actions as appActions, getError } from '../../redux/modules/app';
-import Home from '../Home';
-import ProductDetail from '../ProductDetail';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { actions as appActions, getError } from "../../redux/modules/app";
+import Home from "../Home";
+import ProductDetail from "../ProductDetail";
+import Search from "../Search";
 class App extends Component {
   render() {
-    const {error, appActions:{ clearError }} = this.props;
+    const {
+      error,
+      appActions: { clearError }
+    } = this.props;
     return (
       <div className="App">
         <Router>
           <Switch>
-            <Route path="/detail/:id" component={ProductDetail}></Route>
-            <Route path="/" component={Home}></Route>
+            <Route path="/detail/:id" component={ProductDetail} />
+            <Route path="/search" component={Search} />
+            <Route path="/" component={Home} />
           </Switch>
         </Router>
-        {error? <ErrorToast msg={error} clearError={clearError} /> : null }
+        {error ? <ErrorToast msg={error} clearError={clearError} /> : null}
       </div>
     );
   }
@@ -26,13 +31,13 @@ class App extends Component {
 const mapStateToProps = (state, props) => {
   return {
     error: getError(state)
-  }
-}
-const mapDispatchToProps = (dispatch)  => {
+  };
+};
+const mapDispatchToProps = dispatch => {
   return {
     appActions: bindActionCreators(appActions, dispatch)
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps,
