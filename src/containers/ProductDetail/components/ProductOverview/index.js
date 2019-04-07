@@ -3,7 +3,7 @@ import "./style.css";
 
 class ProductOverview extends Component {
   render() {
-    const { shop, picture, product, description, currentPrice, oldPrice } = this.props.data;
+    const {  picture, product, description, currentPrice, oldPrice } = this.props.data;
     console.log(this.props.data);
     return (
       <div className="productOverview">
@@ -26,7 +26,7 @@ class ProductOverview extends Component {
           <span className="productOverview__symbol">¥</span>
           <span className="productOverview__price">{currentPrice}</span>
           <span className="productOverview__price--old">¥{oldPrice}</span>
-          <a className="productOverview__btn">立即购买</a>
+          <a href="/" className="productOverview__btn">立即购买</a>
         </div>
         <ul className="productOverview__remark">
           <li className="productOverview__remarkItem">
