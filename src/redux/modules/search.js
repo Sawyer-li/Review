@@ -1,6 +1,6 @@
 import url from "../../utils/url";
 import { FETCH_DATA } from "../middleware/api";
-import { schema as keywordSchema } from "./entities/keywords";
+import { schema as keywordSchema, getKeywordById } from "./entities/keywords";
 import { combineReducers } from "redux";
 import { stat } from "fs";
 export const types = {
@@ -85,7 +85,7 @@ const fetchPopularKeywords = endpoint => ({
     schema: keywordSchema
   }
 });
-const fetchRelatedKeywords = endpoint => ({
+const fetchRelatedKeywords = (text,endpoint) => ({
   [FETCH_DATA]: {
     types: [
       types.FETCH_RELATED_KEYWORDS_REQUEST,
@@ -185,3 +185,31 @@ const reducer = combineReducers({
 });
 
 export default reducer;
+
+//selectors
+export const getPopularKeywords = state => {
+  return state.search.popularKeywords.ids.map( id => {
+    return getKeywordById(state, id);
+  })
+}
+export const getRelatedKeywords = state => {
+  const text = state.search.inputText;
+  if(!text || text.trim().length === 0){
+    return [];
+  }
+  const relatedKeywords = state.search.relatedKeywords[text];
+  if(!relatedKeywords){
+    return [];
+  }
+  return relatedKeywords.ids.map(id => {
+    return getKeywordById(state, id)
+  })
+}
+export const getInputText = state => {
+  return state.search.inputText
+}
+export const getHistoryKeywords = state => {
+  return state.search.historyKeywords.ids.map( id => {
+    return getKeywordById(state, id);
+  })
+}
