@@ -17,7 +17,7 @@ export const types = {
   CLEAR_INPUT_TEXT: "SEARCH/CLEAR_INPUT_TEXT",
   // 历史查询记录
   ADD_HISTORY_KEYWORD: "SEARCH/ADD_HISTORY_KEYWORD",
-  CLEAR_HISTORY_KEYWORDS: "SEARCH/CLEAR _HISTORY_KEYWORDS"
+  CLEAR_HISTORY_KEYWORDS: "SEARCH/CLEAR_HISTORY_KEYWORDS"
 };
 
 const initialState = {
@@ -40,13 +40,16 @@ const initialState = {
 };
 
 export const actions = {
-  loadPopularKeywords: (dispatch, getState) => {
-    const { ids } = getState().search.popularKeywords;
-    if (ids.length > 0) {
-      return null;
-    }
-    const endpoint = url.getPopularKeywords();
-    return dispatch(fetchPopularKeywords(endpoint));
+  //获取热门关键词
+  loadPopularKeywords: () => {
+    return (dispatch, getState) => {
+      const { ids } = getState().search.popularKeywords;
+      if (ids.length > 0) {
+        return null;
+      }
+      const endpoint = url.getPopularKeywords();
+      return dispatch(fetchPopularKeywords(endpoint));
+    };
   },
   //搜索框输入文本相关的action
   setInputText: text => ({
@@ -54,18 +57,18 @@ export const actions = {
     text
   }),
   clearInputText: () => ({
-    type: types.CLEAR_HISTORY_KEYWORDS
+    type: types.CLEAR_INPUT_TEXT
   }),
   addHistoryKeyword: keywordId => ({
     type: types.ADD_HISTORY_KEYWORD,
     text: keywordId
   }),
-  clearHistoryKeyword: () => ({
-    types: types.CLEAR_HISTORY_KEYWORDS
+  clearHistoryKeywords: () => ({
+    type: types.CLEAR_HISTORY_KEYWORDS
   }),
   loadRelatedKeywords: text => {
     return (dispatch, getState) => {
-      const { relatedKeywords } = getState.search;
+      const { relatedKeywords } = getState().search;
       if (relatedKeywords[text]) {
         return null;
       }
@@ -154,7 +157,7 @@ const inputText = (state = initialState.inputText, action) => {
   switch (action.type) {
     case types.SET_INPUT_TEXT:
       return action.text;
-    case types.CLEAR_HISTORY_KEYWORDS:
+    case types.CLEAR_INPUT_TEXT:
       return "";
     default:
       return state;
@@ -209,7 +212,7 @@ export const getInputText = state => {
   return state.search.inputText
 }
 export const getHistoryKeywords = state => {
-  return state.search.historyKeywords.ids.map( id => {
+  return state.search.historyKeywords.map( id => {
     return getKeywordById(state, id);
   })
 }
