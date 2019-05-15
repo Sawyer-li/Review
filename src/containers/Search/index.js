@@ -67,6 +67,7 @@ class Search extends Component {
     const { setInputText, addHistoryKeyword } = this.props.searchActions;
     setInputText(item.keyword);
     addHistoryKeyword(item.id);
+    this.props.history.push("/search_result");
     // 跳转搜索结果页逻辑 todo
   };
    // 清除历史记录

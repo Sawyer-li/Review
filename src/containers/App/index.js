@@ -7,6 +7,7 @@ import { actions as appActions, getError } from "../../redux/modules/app";
 import Home from "../Home";
 import ProductDetail from "../ProductDetail";
 import Search from "../Search";
+import SearchResult from "../SearchResult";
 class App extends Component {
   render() {
     const {
@@ -19,6 +20,7 @@ class App extends Component {
           <Switch>
             <Route path="/detail/:id" component={ProductDetail} />
             <Route path="/search" component={Search} />
+            <Route path="/search_result" component={SearchResult} />
             <Route path="/" component={Home} />
           </Switch>
         </Router>

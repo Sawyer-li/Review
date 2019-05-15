@@ -6,7 +6,7 @@ import Headline from "./components/Headline";
 import Discount from "./components/Discount";
 import Likelist from "./components/Likelist";
 import HomeHeader from "./components/HomeHeader";
-import Banner from "./components/Banner";
+import Banner from "../../components/Banner";
 import Footer from "../../components/Footer";
 import {
   actions as homeActions,
