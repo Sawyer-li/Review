@@ -8,5 +8,5 @@ export default {
   getProductDetail: id => `/mock/product_detail/${id}.json`,
   getShopById: id => `/mock/shops/${id}.json`,
   getPopularKeywords: () => "/mock/keywords/popular.json",
-  getRelatedKeywords: text => `/mock/keywords/related.json?keyword=${text}`
+  getRelatedKeywords: text => `/mock/shops/related.json?keyword=${text}`
 };
