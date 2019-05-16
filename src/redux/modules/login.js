@@ -1,10 +1,10 @@
 const initialState = {
-  username: "",
+  username: localStorage.getItem('username') || '',
   password: "",
   isFetching: false,
-  status: false
+  status: localStorage.getItem('login') || false //登入状态标示
 };
-//action types 
+//action types
 export const types = {
   LOGIN_REQUEST: "LOGIN/LOGIN_REQUEST",
   LOGIN_SUCCESS: "LOGIN/LOGIN_SUCCESS",
@@ -14,27 +14,33 @@ export const types = {
   SET_PASSWORD: "LOGIN/SET_PASSWORD"
 };
 
-
 //action creators
 export const actions = {
   login: () => {
     return (dispatch, getState) => {
-      const { username, password } = getState.login;
+      const { username, password } = getState().login;
       if (username && username.length > 0 && password && password.length > 0) {
+        dispatch(loginRequest);
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            dispatch(loginSuccess());
+            localStorage.setItem("username", username);
+            localStorage.setItem("login", true);
+            resolve();
+          }, 1000);
+        });
+      } else {
         return dispatch(loginFailure("用户名和秘密不能为空！"));
       }
-      dispatch(loginRequest);
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          dispatch(loginSuccess());
-          resolve();
-        }, 1000);
-      });
     };
   },
-  logout: () => ({
-    type: types.LOGOUT
-  }),
+  logout: () => {
+    localStorage.removeItem('username');
+    localStorage.removeItem('login');
+    return {
+      type: types.LOGOUT
+    };
+  },
   setUsername: username => ({
     type: types.SET_USERNAME,
     username
@@ -78,3 +84,8 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+
+// selectors
+export const getUsername = state => state.login.username;
+export const getPassword = state => state.login.password;
+export const isLogin = state => state.login.status;

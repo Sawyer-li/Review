@@ -89,7 +89,6 @@ export const actions = {
         return null;
       }
       const endpoint = url.getRelatedKeywords(keywords);
-      console.log(fetchRelatedShops(keywords, endpoint));
       return dispatch(fetchRelatedShops(keywords, endpoint));
     };
   }
